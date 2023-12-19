@@ -99,24 +99,34 @@ for (i in 1:length(links_themes)) {
 themes <- themes |> 
   mutate(updated = ymd(updated))
 
-str_abbreviate <- function(string, len = 30L) {
-  if (is.na(string)) {
-    return(string)
-  }
-  
-  if (str_length(string) > (len - 3)) {
-      return(paste0(str_sub(string, end = len - 3), "..."))
-  } else {
-    return(string)
-  }
-}
-
-str_abbreviate_V <- Vectorize(str_abbreviate)
-
+# str_abbreviate <- function(string, len = 30L) {
+#   if (is.na(string)) {
+#     return(string)
+#   }
+#   
+#   if (str_length(string) > (len - 3)) {
+#       return(paste0(str_sub(string, end = len - 3), "..."))
+#   } else {
+#     return(string)
+#   }
+# }
+# 
+# str_abbreviate_V <- Vectorize(str_abbreviate)
+# 
+# 
+# themes |>
+#   transmute(name,
+#             description = str_abbreviate_V(description),
+#             updated, author, license, git_hub_stars, download)
+# 
+# 
+# themes |> 
+#   transmute(name, 
+#             description = str_abbreviate_V(description),
+#             updated, author, license, git_hub_stars, download) |> 
+#   knitr::kable() |> 
+#   clipr::write_clip()
 
 themes |> 
-  transmute(name, 
-            description = str_abbreviate_V(description),
-            updated, author, license, git_hub_stars, download)
-
+  readr::write_csv("themes.csv")
 
